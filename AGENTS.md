@@ -9,7 +9,7 @@ Welcome to **`kabir-ke-dohe`**! This repository is a standalone generator and co
 - **Purpose**: Fetches Kabir couplets (text and Hindi meanings) from the live REST API and generates structured, formatted Markdown collection files (`docs/collection-XX-to-YY.md`), with 50 couplets per page.
 - **Data Source**: Live API endpoint `https://kabirdoheapi.vercel.app/api/couplets?per_page=50&page={n}` (overridable via `COUPLETS_API_URL` env var).
 - **Output Directory**: `docs/` (46 collection files currently generated and committed).
-- **Core Script**: `src/build-collections.ts` handles API fetching with retries, formatting lines at the danda (`।`), applying Devanagari numerals, formatting with Prettier, and appending SEO tags.
+- **Core Script**: `src/build.ts` handles API fetching with retries, formatting lines at the danda (`।`), applying Devanagari numerals, formatting with Prettier, and appending SEO tags.
 
 ---
 
@@ -19,8 +19,10 @@ Welcome to **`kabir-ke-dohe`**! This repository is a standalone generator and co
 kabir-ke-dohe/
 ├── docs/                       # Generated markdown collections (collection-01-to-50.md, etc.)
 ├── src/                        # TypeScript source files
-│   ├── build-collections.ts    # Main build generator script
-│   └── types.ts                # TypeScript interface definitions (ApiPost, ApiResponse, CollectionEntry)
+│   ├── build.ts                # Main build generator script
+│   ├── types.ts                # TypeScript interface definitions (ApiPost, ApiResponse, CollectionEntry)
+│   ├── constants/              # Global constants (API_BASE_URL, KABIR_KEYWORDS, HINDI_DIGITS, etc.)
+│   └── lib/                    # Modular utility functions (api.ts, formatting.ts, seo.ts)
 ├── README.md                   # Public repository documentation & index of couplet collections
 ├── AGENTS.md                   # Operating guidelines for AI coding assistants
 ├── package.json                # Project dependencies, scripts, and package metadata
@@ -70,5 +72,5 @@ This project uses **Bun** as the JavaScript runtime and package manager.
    ```bash
    bun run tsc && bun run lint && bun run format:check
    ```
-2. **Docs Integrity**: If `build-collections.ts` or formatting logic is modified, run `bun run build` to verify the generated markdown files in `docs/` render correctly.
+2. **Docs Integrity**: If `build.ts` or formatting logic is modified, run `bun run build` to verify the generated markdown files in `docs/` render correctly.
 3. **No Unintended Changes**: Do not mutate or touch files outside this repository directory (`/Users/vijay/xoxo/apps/kabir-ke-dohe`).
