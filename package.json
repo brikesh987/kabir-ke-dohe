@@ -4,12 +4,16 @@
   "description": "Kabir Dohe Collections — Generate markdown collections of Kabir's couplets",
   "type": "module",
   "scripts": {
-    "build": "bun run src/build-collections.ts",
+    "build": "bun run src/build.ts",
+    "build:test": "bun run src/build.ts --limit 1",
     "format": "prettier --write --log-level error .",
     "format:check": "prettier --check --log-level error .",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "tsc": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
     "prepare": "husky"
   },
   "keywords": [
@@ -43,6 +47,7 @@
     "@typescript-eslint/eslint-plugin": "^8.67.0",
     "@typescript-eslint/parser": "^8.67.0",
     "@vijayhardaha/dev-config": "^2.3.1",
+    "@vitest/coverage-v8": "^4.1.10",
     "eslint": "^10.8.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-import-resolver-typescript": "^4.4.5",
@@ -54,6 +59,7 @@
     "husky": "^9.1.7",
     "prettier": "^3.9.6",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.67.0"
+    "typescript-eslint": "^8.67.0",
+    "vitest": "^4.1.10"
   }
 }
