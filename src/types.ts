@@ -1,31 +1,37 @@
 /**
  * A single couplet post returned by the live API.
+ *
+ * @type {ApiPost}
+ * @property {number} number - Sequential post number.
+ * @property {string} slug - URL-friendly slug.
+ * @property {string} text_hi - Hindi text of the couplet.
+ * @property {string} text_en - English transliteration of the couplet.
+ * @property {string | null} meaning_hi - Hindi meaning/translation, may be null.
+ * @property {string | null} meaning_en - English meaning/translation, may be null.
+ * @property {{ name: string; slug: string } | null} category - Category info, or null when unassigned.
+ * @property {Array<{ name: string; slug: string }>} tags - Tags associated with the couplet.
+ * @property {string} created_at - Creation timestamp.
+ * @property {string} updated_at - Last update timestamp.
  */
 export interface ApiPost {
-  /** Sequential post number. */
   number: number;
-  /** URL-friendly slug. */
   slug: string;
-  /** Hindi text of the couplet. */
   text_hi: string;
-  /** English transliteration of the couplet. */
   text_en: string;
-  /** Hindi meaning/translation, may be null. */
   meaning_hi: string | null;
-  /** English meaning/translation, may be null. */
   meaning_en: string | null;
-  /** Category info, or null when unassigned. */
   category: { name: string; slug: string } | null;
-  /** Tags associated with the couplet. */
   tags: Array<{ name: string; slug: string }>;
-  /** Creation timestamp. */
   created_at: string;
-  /** Last update timestamp. */
   updated_at: string;
 }
 
 /**
  * The response envelope returned by the couplets API.
+ *
+ * @type {ApiResponse}
+ * @property {boolean} success - Whether the API request succeeded.
+ * @property {{ posts: ApiPost[]; total: number; totalPages: number; page: number; per_page: number; pagination: boolean }} data - The response data containing posts and pagination info.
  */
 export interface ApiResponse {
   success: boolean;
@@ -34,6 +40,10 @@ export interface ApiResponse {
 
 /**
  * An entry prepared for markdown generation.
+ *
+ * @type {CollectionEntry}
+ * @property {string} couplet_hindi - Hindi text of the couplet.
+ * @property {string} translation_hindi - Hindi meaning/translation of the couplet.
  */
 export interface CollectionEntry {
   couplet_hindi: string;
