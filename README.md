@@ -1,3 +1,12 @@
+```
+██╗  ██╗ █████╗ ██████╗ ██╗██████╗     ██╗  ██╗███████╗    ██████╗  ██████╗ ██╗  ██╗███████╗
+██║ ██╔╝██╔══██╗██╔══██╗██║██╔══██╗    ██║ ██╔╝██╔════╝    ██╔══██╗██╔═══██╗██║  ██║██╔════╝
+█████╔╝ ███████║██████╔╝██║██████╔╝    █████╔╝ █████╗      ██║  ██║██║   ██║███████║█████╗
+██╔═██╗ ██╔══██║██╔══██╗██║██╔══██╗    ██╔═██╗ ██╔══╝      ██║  ██║██║   ██║██╔══██║██╔══╝
+██║  ██╗██║  ██║██████╔╝██║██║  ██║    ██║  ██╗███████╗    ██████╔╝╚██████╔╝██║  ██║███████╗
+╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ ╚═╝╚═╝  ╚═╝    ╚═╝  ╚═╝╚══════╝    ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚══════╝
+```
+
 # Collection of Saint Kabir's Couplets
 
 In this repository, we have compiled a collection of the remarkable couplets of the great saint Kabir. Kabir's couplets are an essential part of Indian literature and religious tradition, and in this repository, you will find a collection of his instructive and deeply emotional couplets.
