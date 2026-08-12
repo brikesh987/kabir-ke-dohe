@@ -1,0 +1,59 @@
+{
+  "name": "kabir-ke-dohe",
+  "version": "1.0.0",
+  "description": "Kabir Dohe Collections — Generate markdown collections of Kabir's couplets",
+  "type": "module",
+  "scripts": {
+    "build": "bun run src/build-collections.ts",
+    "format": "prettier --write --log-level error .",
+    "format:check": "prettier --check --log-level error .",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "tsc": "tsc --noEmit",
+    "prepare": "husky"
+  },
+  "keywords": [
+    "Kabir",
+    "dohe",
+    "collections"
+  ],
+  "author": {
+    "name": "Vijay Hardaha",
+    "url": "https://github.com/vijayhardaha"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/vijayhardaha/kabir-ke-dohe#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vijayhardaha/kabir-ke-dohe.git"
+  },
+  "bugs": {
+    "url": "https://github.com/vijayhardaha/kabir-ke-dohe/issues"
+  },
+  "dependencies": {
+    "ora": "^9.4.1"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^21.2.1",
+    "@commitlint/config-conventional": "^21.2.0",
+    "@commitlint/types": "^21.2.0",
+    "@eslint/compat": "^2.1.0",
+    "@prettier/plugin-xml": "^3.4.2",
+    "@types/node": "26.2.0",
+    "@typescript-eslint/eslint-plugin": "^8.67.0",
+    "@typescript-eslint/parser": "^8.67.0",
+    "@vijayhardaha/dev-config": "^2.3.1",
+    "eslint": "^10.8.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-import-resolver-typescript": "^4.4.5",
+    "eslint-plugin-import-x": "^4.17.1",
+    "eslint-plugin-jsdoc": "^64.1.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-prettier": "^5.5.6",
+    "globals": "^17.11.0",
+    "husky": "^9.1.7",
+    "prettier": "^3.9.6",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.67.0"
+  }
+}
