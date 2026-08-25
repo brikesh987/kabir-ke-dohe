@@ -1,5 +1,6 @@
-import { API_BASE_URL, ENTRIES_PER_FILE, MAX_RETRIES, RETRY_DELAY_MS } from '../constants';
+import { API_BASE_URL, ENTRIES_PER_FILE, MAX_RETRIES, RETRY_DELAY_MS, RATE_LIMIT_WINDOW_MS } from '../constants';
 import type { ApiPost, ApiResponse } from '../types';
+import { rateLimit } from './rate-limiter';
 
 /**
  * Constructs the URL for fetching a specific page of couplets from the API.
@@ -27,9 +28,28 @@ export async function fetchPage(page: number): Promise<ApiPost[]> {
 
   for (let attempt = 1; attempt <= MAX_RETRIES; attempt += 1) {
     try {
+      await rateLimit();
       const response = await fetch(url);
 
       if (!response.ok) {
+        if (response.status === 429 && attempt < MAX_RETRIES) {
+          const retryAfter = response.headers.get('retry-after');
+          let waitMs = RATE_LIMIT_WINDOW_MS;
+
+          if (retryAfter) {
+            const parsed = Number.parseInt(retryAfter, 10);
+            if (!Number.isNaN(parsed)) {
+              waitMs = parsed * 1000;
+            }
+          }
+
+          console.warn(
+            `Page ${page} rate limited (429). Waiting ${Math.round(waitMs / 1000)}s before retrying (attempt ${attempt}/${MAX_RETRIES})...`
+          );
+          await new Promise((resolveTimeout) => setTimeout(resolveTimeout, waitMs));
+          continue;
+        }
+
         throw new Error(`API responded with status ${response.status}`);
       }
 

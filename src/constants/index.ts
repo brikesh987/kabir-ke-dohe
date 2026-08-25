@@ -14,6 +14,24 @@ export const MAX_RETRIES = 3;
 export const RETRY_DELAY_MS = 1000;
 
 /**
+ * Maximum number of API requests allowed within the rate limit window.
+ * Mirrors the server-side rate limit configuration.
+ */
+export const RATE_LIMIT_MAX = 30;
+
+/**
+ * Rate limit window in seconds. The server allows RATE_LIMIT_MAX requests
+ * per this many seconds.
+ */
+export const RATE_LIMIT_WINDOW_SECONDS = 60;
+
+/**
+ * Rate limit window in milliseconds (derived from RATE_LIMIT_WINDOW_SECONDS).
+ * Used for sliding-window calculations and 429 retry delays.
+ */
+export const RATE_LIMIT_WINDOW_MS = RATE_LIMIT_WINDOW_SECONDS * 1000;
+
+/**
  * Base URL of the Kabir Dohe API. Overridable via the COUPLETS_API_URL env var.
  */
 export const API_BASE_URL = process.env.COUPLETS_API_URL ?? 'https://kabirdoheapi.vercel.app';

@@ -1,8 +1,9 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest';
 
-import { API_BASE_URL, ENTRIES_PER_FILE } from '../../constants';
+import { API_BASE_URL, ENTRIES_PER_FILE, RATE_LIMIT_WINDOW_MS } from '../../constants';
 import type { ApiPost, ApiResponse } from '../../types';
 import { fetchPage, getCoupletsApiUrl } from '../api';
+import { resetRateLimiter } from '../rate-limiter';
 
 /**
  * Minimal valid ApiPost factory for tests.
@@ -45,6 +46,7 @@ describe('api module', () => {
 
     beforeEach(() => {
       vi.restoreAllMocks();
+      resetRateLimiter();
     });
 
     afterEach(() => {
@@ -110,6 +112,71 @@ describe('api module', () => {
 
       await expect(fetchPage(1)).rejects.toThrow('Page 1 fetch failed after 3 attempts: plain string error');
       expect(global.fetch).toHaveBeenCalledTimes(3);
+    });
+
+    it('should wait the full rate limit window and retry on 429', async () => {
+      vi.useFakeTimers();
+
+      const mockResponse: ApiResponse = {
+        success: true,
+        data: { posts: [makePost()], total: 1, totalPages: 1, page: 1, per_page: 50, pagination: false },
+      };
+
+      global.fetch = vi
+        .fn()
+        .mockResolvedValueOnce({ ok: false, status: 429, headers: { get: () => null } } as unknown as Response)
+        .mockResolvedValueOnce({ ok: true, json: async () => mockResponse } as Response);
+
+      const promise = fetchPage(1);
+      await vi.advanceTimersByTimeAsync(RATE_LIMIT_WINDOW_MS);
+      const posts = await promise;
+
+      expect(posts).toHaveLength(1);
+      expect(global.fetch).toHaveBeenCalledTimes(2);
+      vi.useRealTimers();
+    });
+
+    it('should use Retry-After header value when provided on 429', async () => {
+      vi.useFakeTimers();
+
+      const mockResponse: ApiResponse = {
+        success: true,
+        data: { posts: [makePost()], total: 1, totalPages: 1, page: 1, per_page: 50, pagination: false },
+      };
+
+      global.fetch = vi
+        .fn()
+        .mockResolvedValueOnce({ ok: false, status: 429, headers: { get: () => '30' } } as unknown as Response)
+        .mockResolvedValueOnce({ ok: true, json: async () => mockResponse } as Response);
+
+      const promise = fetchPage(1);
+      await vi.advanceTimersByTimeAsync(30_000);
+      const posts = await promise;
+
+      expect(posts).toHaveLength(1);
+      expect(global.fetch).toHaveBeenCalledTimes(2);
+      vi.useRealTimers();
+    });
+
+    it('should throw after exhausting retries on 429', async () => {
+      vi.useFakeTimers();
+
+      global.fetch = vi
+        .fn()
+        .mockResolvedValue({ ok: false, status: 429, headers: { get: () => null } } as unknown as Response);
+
+      const promise = fetchPage(1);
+      // Attach the rejection handler before advancing timers to avoid
+      // an unhandled promise rejection warning
+      const expectation = expect(promise).rejects.toThrow(
+        'Page 1 fetch failed after 3 attempts: API responded with status 429'
+      );
+
+      await vi.advanceTimersByTimeAsync(RATE_LIMIT_WINDOW_MS);
+      await vi.advanceTimersByTimeAsync(RATE_LIMIT_WINDOW_MS);
+      await expectation;
+      expect(global.fetch).toHaveBeenCalledTimes(3);
+      vi.useRealTimers();
     });
   });
 });
