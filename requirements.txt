@@ -1,0 +1,5 @@
+requests==2.32.3
+schedule==1.2.2
+win10toast==0.9
+pystray==0.19.5
+pillow==11.0.0

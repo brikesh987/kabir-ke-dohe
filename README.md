@@ -54,7 +54,7 @@ In this repository, we have compiled a collection of some of Saint Kabir's coupl
 - [दोहे संग्रह - 1101 से 1150 तक][markdown-1101-to-1150]
 - [दोहे संग्रह - 1151 से 1200 तक][markdown-1151-to-1200]
 - [दोहे संग्रह - 1201 से 1250 तक][markdown-1201-to-1250]
-- [दोहे संग्रह - 1251 से 1300 तक][markdown-1251-to-1300]
+- [दोहे संग्रह - 1251 to 1300 तक][markdown-1251-to-1300]
 - [दोहे संग्रह - 1301 से 1350 तक][markdown-1301-to-1350]
 - [दोहे संग्रह - 1351 से 1400 तक][markdown-1351-to-1400]
 - [दोहे संग्रह - 1401 से 1450 तक][markdown-1401-to-1450]
@@ -119,7 +119,7 @@ In this repository, we have compiled a collection of some of Saint Kabir's coupl
 [markdown-2001-to-2050]: docs/collection-2001-to-2050.md
 [markdown-2051-to-2100]: docs/collection-2051-to-2100.md
 [markdown-2101-to-2150]: docs/collection-2101-to-2150.md
-[markdown-2151-to-2200]: docs/collection-2201-to-2200.md
+[markdown-2151-to-2200]: docs/collection-2151-to-2200.md
 [markdown-2201-to-2250]: docs/collection-2201-to-2250.md
 [markdown-2251-to-2300]: docs/collection-2251-to-2300.md
 
@@ -147,6 +147,58 @@ If you wish to create something related to Kabir das couplets and need data for 
 ```bash
 curl https://kabirdoheapi.vercel.app/api/couplets
 ```
+
+## Kabir Reminder App
+
+A small Windows desktop reminder that shows a Kabir doha and its meaning every hour.
+
+## Features
+
+- hourly toast notifications
+- local data file for dohas and meanings
+- easy to extend with more Kabir and Tulsidas shlokas
+- supports a single-test mode for quick validation
+
+## Run locally
+
+```bash
+python -m pip install -r requirements.txt
+python app.py
+```
+
+By default, the app launches in tray mode so it can stay running in the background and show hourly quotes without keeping a console open.
+
+Useful commands:
+
+```bash
+python app.py --once
+python app.py --ui
+python app.py --interval-hours 2
+python app.py --install-startup
+python app.py --remove-startup
+```
+
+The tray icon includes options to:
+- show a quote now
+- start or stop reminders
+- enable or disable Windows startup
+- exit the app
+
+## Data structure
+
+The app reads from `data/doha_data.json` and expects entries like:
+
+```json
+[
+  {
+    "source": "Kabir",
+    "doha": "...",
+    "meaning": "..."
+  }
+]
+```
+
+Add more dohas or Tulsidas items in the same format.
 
 ## License
 

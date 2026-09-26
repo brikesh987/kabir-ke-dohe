@@ -3,24 +3,34 @@
 # =======================================================================
 # Purpose: Prevent build artifacts, local config, and sensitive
 #          credentials from entering version control.
-# Scope:   Next.js, Svelte, WordPress — npm, pnpm, yarn, bun.
-# Docs:    https://git-scm.com/docs/gitignore
+# Scope:   Project-wide Python, Node, and Windows desktop app runtime files.
 # =======================================================================
+
+# ----------------------------------------------------------------------
+# Python app runtime
+# ----------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.venv/
+venv/
+.env
+.env.*
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Kabir reminder app runtime state
+.kabir_reminder.lock
 
 # ----------------------------------------------------------------------
 # Dependency Managers (Node)
 # ----------------------------------------------------------------------
-# Large binary folders and lockfile caches.
 .pnp/
 .pnp.*
-
-# Bun
 .bun/
-
-# Node
 node_modules/
-
-# Yarn 2+ Zero-Installs
 .yarn/*
 !.yarn/patches
 !.yarn/plugins
@@ -30,7 +40,6 @@ node_modules/
 # ----------------------------------------------------------------------
 # Dependencies (Php)
 # ----------------------------------------------------------------------
-# Composer dependencies for WordPress / Laravel projects.
 /languages
 vendor/
 
@@ -50,53 +59,27 @@ go.work.sum
 # ----------------------------------------------------------------------
 # Build & Compilation Output
 # ----------------------------------------------------------------------
-# Next.js / React
 .next/
 /out/
-
-# Svelte
 .svelte-kit/
-
-# TypeScript
 *.tsbuildinfo
 next-env.d.ts
-
-# Bundler output
 /build/
 /dist/
 
 # ----------------------------------------------------------------------
 # Cache Directories
 # ----------------------------------------------------------------------
-# Esbuild / tsdown
 .cache/
-
-# Gulp
 .gulp/
-
-# Parcel
 .parcel-cache/
-
-# Phpcs
 .phpcs-cache
-
-# PostCSS
 .postcssrc
-
-# Rollup
 .rollup.cache/
-
-# Turborepo
 .turbo/
-
-# Vite / Vitest
 .vite/
 .vitest/
-
-# Webpack
 .webpack/
-
-# Linter / Formatter caches
 .eslintcache
 .ruff_cache
 .stylelintcache
@@ -104,34 +87,26 @@ next-env.d.ts
 # ----------------------------------------------------------------------
 # Testing & Coverage
 # ----------------------------------------------------------------------
-# Coverage reports
 .nyc_output/
 coverage/
-
-# Jest
 .jest/
-
-# Playwright
 blob-report/
 playwright-report/
 test-results/
-
-# Vitest
 vitest-results/
 
 # ----------------------------------------------------------------------
-# Editor & Ide Settings
+# Editor & IDE Settings
 # ----------------------------------------------------------------------
-# These are developer-specific, not project-specific.
-# .vscode/
 .idea/
+.vscode/
 .vscode-insiders/
 *.swp
 *.swo
 
 # Vim
 [._]*.s[a-v][a-z]
-!*.svg  # comment out if you don't need vector files
+!*.svg
 [._]*.sw[a-p]
 [._]s[a-rt-v][a-z]
 [._]ss[a-gi-z]
@@ -142,9 +117,8 @@ Sessionx.vim
 [._]*.un~
 
 # ----------------------------------------------------------------------
-# System & Os Junk
+# System & OS Junk
 # ----------------------------------------------------------------------
-# macOS
 .AppleDouble
 .DS_Store
 .LSOverride
@@ -162,14 +136,10 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
-
-# Windows
 $RECYCLE.BIN/
 Desktop.ini
 Thumbs.db
 ehthumbs.db
-
-# Linux
 *~
 .fuse_hidden*
 .directory
@@ -177,24 +147,16 @@ ehthumbs.db
 .nfs*
 
 # ----------------------------------------------------------------------
-# Deployment (Platform-Specific)
+# Deployment
 # ----------------------------------------------------------------------
-# Cloudflare
 .wrangler/
-
-# Netlify
 .netlify/
-
-# Vercel
 .vercel/
 
 # ----------------------------------------------------------------------
 # Log Files
 # ----------------------------------------------------------------------
-# Application, server, and framework logs across all project types.
 *.log
-
-# Node.js / npm / pnpm
 npm-debug.log*
 pnpm-debug.log*
 pnpm-error.log*
@@ -324,3 +286,12 @@ coverage.txt
 # Project-level instruction files should be COMMITTED, not ignored.
 # CLAUDE.md, AGENTS.md, .cursorrules, .kilocode/, .qoder/ (config only)
 # Do NOT add these to .gitignore.
+=======
+__pycache__/
+.venv/
+*.pyc
+*.pyo
+*.pyd
+.env
+.kabir_reminder.lock
+>>>>>>> 2d8bfdc (Add Kabir/Tulsidas doha reminder app)
